@@ -1,14 +1,18 @@
-use bluetooth_serial_port::{BtProtocol, BtSocket};
-use std::io::{Read, Write};
-use mio::{Poll, PollOpt, Token, Ready};
-
 fn main() {
-    // scan for devices
-    let devices = bluetooth_serial_port::scan_devices().unwrap();
-    if devices.len() == 0 { panic!("No devices found"); }
+    let api = hidapi::HidApi::new().unwrap();
+    for device in api.device_list() {
+        println!("{:#?}", device);
+    }
 
-    // "device.addr" is the MAC address of the device
-    let device = &devices[0];
-    println!("Connecting to `{}` ({})", device.name, device.addr.to_string());
-
+    // let (VID, PID) = (0x1200, 0x038F);
+    // let device = api.open(VID, PID).unwrap();
+    //
+    // let mut buf = [0u8; 8];
+    // let res = device.read(&mut buf[..]).unwrap();
+    // println!("Read: {:?}", &buf[..res]);
+    //
+    // let buf = [0u8, 1, 2, 3, 4];
+    // let res = device.write(&buf).unwrap();
+    // println!("Wrote: {:?} byte(s)", res);
 }
+

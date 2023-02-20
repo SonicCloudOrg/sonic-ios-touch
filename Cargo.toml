@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-bluetooth-serial-port = "0.5.1"
+io_bluetooth = "0.1.0"
